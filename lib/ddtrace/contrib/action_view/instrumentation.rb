@@ -105,6 +105,14 @@ module Datadog
                 template_name = Utils.normalize_template_name(template_name)
                 layout = layout_name.try(:[], 'virtual_path')
 
+                # Rails 6 TODO move me
+                # context = args[0]
+                template = args[1]
+                layout_ = args[2]
+
+                layout = layout_.try(:call)
+                template_name ||= Utils.normalize_template_name(template.try('identifier'))
+
                 if template_name
                   active_datadog_span.set_tag(
                     Ext::TAG_TEMPLATE_NAME,
@@ -157,6 +165,12 @@ module Datadog
           def render_partial(*args)
             begin
               template_name = Utils.normalize_template_name(@template.try('identifier'))
+
+              # Rails 6
+              # context = args[0]
+              template = args[1]
+              template_name = Utils.normalize_template_name(template.try('identifier'))
+
               if template_name
                 active_datadog_span.set_tag(
                   Ext::TAG_TEMPLATE_NAME,

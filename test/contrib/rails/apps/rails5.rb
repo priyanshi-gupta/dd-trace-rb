@@ -6,3 +6,4 @@ module Rails5
 end
 
 Rails5::Application.test_config()
+

@@ -596,6 +596,37 @@ elsif Gem::Version.new('2.5.0') <= Gem::Version.new(RUBY_VERSION) \
       gem 'activejob'
     end
 
+    appraise 'rails6-mysql2' do
+      gem 'rails', '~> 6.0.0'
+      gem 'mysql2', '< 0.5', platform: :ruby
+    end
+
+    appraise 'rails6-postgres' do
+      gem 'rails', '~> 6.0.0'
+      gem 'pg', '< 1.0', platform: :ruby
+    end
+
+    appraise 'rails6-postgres-redis' do
+      gem 'rails', '~> 6.0.0'
+      gem 'pg', '< 1.0', platform: :ruby
+      gem 'redis-rails'
+      gem 'redis'
+    end
+
+    appraise 'rails6-postgres-redis-activesupport' do
+      gem 'rails', '~> 6.0.0'
+      gem 'pg', '< 1.0', platform: :ruby
+      gem 'redis-rails'
+      gem 'redis'
+    end
+
+    appraise 'rails6-postgres-sidekiq' do
+      gem 'rails', '~> 6.0.0'
+      gem 'pg', '< 1.0', platform: :ruby
+      gem 'sidekiq'
+      gem 'activejob'
+    end
+
     appraise 'contrib' do
       gem 'actionpack'
       gem 'actionview'

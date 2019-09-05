@@ -6,6 +6,8 @@ if ENV['USE_SIDEKIQ']
   require 'ddtrace/contrib/sidekiq/server_tracer'
 end
 
+class ApplicationController < ActionController::Base; end
+
 module RailsTrace
   class TestApplication < Rails::Application
     # common settings between all Rails versions

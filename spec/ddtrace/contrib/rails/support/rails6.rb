@@ -10,7 +10,10 @@ require 'ddtrace/contrib/rails/support/controllers'
 require 'ddtrace/contrib/rails/support/middleware'
 require 'ddtrace/contrib/rails/support/models'
 
-RSpec.shared_context 'Rails 5 base application' do
+require 'action_text'
+class ApplicationController < ActionController::Base; end
+
+RSpec.shared_context 'Rails 6 base application' do
   include_context 'Rails controllers'
   include_context 'Rails middleware'
   include_context 'Rails models'
@@ -36,6 +39,9 @@ RSpec.shared_context 'Rails 5 base application' do
       config.middleware.delete ActionDispatch::DebugExceptions
       instance_eval(&during_init)
 
+      pp "config.active_record"
+      pp config.active_record # TODO save config
+
       if ENV['USE_SIDEKIQ']
         config.active_job.queue_adapter = :sidekiq
         # add Sidekiq middleware
@@ -60,7 +66,6 @@ RSpec.shared_context 'Rails 5 base application' do
       Rails.application.config.active_job.queue_adapter = :sidekiq
 
       before_test_init.call
-      # binding.pry
       initialize!
       after_test_init.call
     end
@@ -83,6 +88,22 @@ RSpec.shared_context 'Rails 5 base application' do
   # Rails 5 leaves a bunch of global class configuration on Rails::Railtie::Configuration in class variables
   # We need to reset these so they don't carry over between example runs
   def reset_rails_configuration!
+    # pp 'ActiveRecord::Railtie.instance_variable_set(:@instance, nil) reset'
+    # pp ActiveRecord::Railtie.instance_variable_get(:@instance).config
+    # ActiveRecord::Railtie.instance_variable_set(:@instance, nil)
+    # pp 'ActiveRecord::Railtie.instance_variable_set(:@instance, nil) after'
+    # pp ActiveRecord::Railtie.instance_variable_get(:@instance)
+
+
+    ActiveRecord::Railtie.instance_variable_get(:@instance).config.active_record.sqlite3 = ActiveSupport::OrderedOptions.new
+
+    # pp 'Rails::Railtie::Configuration.class_variable_get(:@@options)'
+    # pp Rails::Railtie::Configuration.class_variable_get(:@@options)
+
+    ActiveSupport::Dependencies.class_variable_set(:@@autoload_paths, [])
+    ActiveSupport::Dependencies.class_variable_set(:@@autoload_once_paths, [])
+    ActiveSupport::Dependencies.class_variable_set(:@@_eager_load_paths, Set.new)
+
     Rails::Railtie::Configuration.class_variable_set(:@@eager_load_namespaces, nil)
     Rails::Railtie::Configuration.class_variable_set(:@@watchable_files, nil)
     Rails::Railtie::Configuration.class_variable_set(:@@watchable_dirs, nil)

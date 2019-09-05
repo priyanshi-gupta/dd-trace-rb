@@ -7,7 +7,10 @@ if ENV['USE_SIDEKIQ']
 end
 
 RSpec.shared_context 'Rails base application' do
-  if Rails.version >= '5.0'
+  if Rails.version >= '6.0'
+    require 'ddtrace/contrib/rails/support/rails6' # TODO either add rails6, or rename to rails_latest?
+    include_context 'Rails 6 base application'
+  elsif Rails.version >= '5.0'
     require 'ddtrace/contrib/rails/support/rails5'
     include_context 'Rails 5 base application'
   elsif Rails.version >= '4.0'
