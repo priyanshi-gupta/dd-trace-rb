@@ -8,5 +8,3 @@ module Rails6
 end
 
 Rails6::Application.test_config()
-
-

@@ -39,8 +39,8 @@ RSpec.shared_context 'Rails 6 base application' do
       config.middleware.delete ActionDispatch::DebugExceptions
       instance_eval(&during_init)
 
-      pp "config.active_record"
-      pp config.active_record # TODO save config
+      # pp "config.active_record"
+      # pp config.active_record # TODO save config
 
       if ENV['USE_SIDEKIQ']
         config.active_job.queue_adapter = :sidekiq
@@ -93,7 +93,6 @@ RSpec.shared_context 'Rails 6 base application' do
     # ActiveRecord::Railtie.instance_variable_set(:@instance, nil)
     # pp 'ActiveRecord::Railtie.instance_variable_set(:@instance, nil) after'
     # pp ActiveRecord::Railtie.instance_variable_get(:@instance)
-
 
     ActiveRecord::Railtie.instance_variable_get(:@instance).config.active_record.sqlite3 = ActiveSupport::OrderedOptions.new
 
