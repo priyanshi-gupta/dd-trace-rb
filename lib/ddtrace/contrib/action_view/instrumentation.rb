@@ -110,7 +110,7 @@ module Datadog
                 template = args[1]
                 layout_ = args[2]
 
-                layout = layout_.try(:call)
+                layout ||= layout_.try(:call)
                 template_name ||= Utils.normalize_template_name(template.try('identifier'))
 
                 if template_name
@@ -169,7 +169,7 @@ module Datadog
               # Rails 6
               # context = args[0]
               template = args[1]
-              template_name = Utils.normalize_template_name(template.try('identifier'))
+              template_name ||= Utils.normalize_template_name(template.try('identifier'))
 
               if template_name
                 active_datadog_span.set_tag(
