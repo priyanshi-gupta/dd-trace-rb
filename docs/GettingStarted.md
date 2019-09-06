@@ -2,7 +2,7 @@
 
 `ddtrace` is Datadog’s tracing client for Ruby. It is used to trace requests as they flow across web servers,
 databases and microservices so that developers have high visibility into bottlenecks and troublesome requests.
-
+<DO NOT MERGE>
 ## Getting started
 
 For the general APM documentation, see our [setup documentation][setup docs].
