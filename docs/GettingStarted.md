@@ -101,9 +101,9 @@ To contribute, check out the [contribution guidelines][contribution docs] and [d
 
 **Supported tracing frameworks**:
 
-| Type        | Documentation                                   | Version               | Support type |
-| ----------- | ----------------------------------------------- | --------------------- | ------------ |
-| OpenTracing | https://github.com/opentracing/opentracing-ruby | 0.4.1+ (w/ Ruby 2.1+) | Alpha |
+| Type        | Documentation                                   | Version               |
+| ----------- | ----------------------------------------------- | --------------------- |
+| OpenTracing | https://github.com/opentracing/opentracing-ruby | 0.4.1+ (w/ Ruby 2.1+) | 
 
 *Full* support indicates all tracer features are available.
 
